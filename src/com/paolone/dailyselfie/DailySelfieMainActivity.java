@@ -78,10 +78,7 @@ public class DailySelfieMainActivity extends Activity
     }
 
 
-    /**
-     * Callback method from {@link SelfieListFragment.Callbacks}
-     * indicating that the item with the given ID was selected.
-     */
+    // Callback method from  SelfieListFragment.Callbacks}
     @Override
     public void onItemSelected(String id) {
 
@@ -134,7 +131,7 @@ public class DailySelfieMainActivity extends Activity
      *****************************************/
 
     // Simply load default main layout
-    // TODO: improve managing user selection or Andorid choice override for mid-layer devices
+    // TODO: improve managing user layout selection or override Android choice for mid-layer devices
     private void loadLayout(boolean forceTwoPaneMode) {
 		// Load fragment container frame layout
         setContentView(R.layout.daily_selfie_main);

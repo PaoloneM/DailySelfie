@@ -28,52 +28,40 @@ public class SelfieListFragment extends ListFragment {
     // TAG for logging
 	private static final String TAG = "Dailiy_Selfie";
 
-    /**
-     * The serialization (saved instance state) Bundle key representing the
-     * activated item position. Only used on tablets.
-     */
+    // The serialization (saved instance state) Bundle key representing the activated item position.
+    // Only used on tablets.
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
-    /**
-     * The fragment's current callback object, which is notified of list item
-     * clicks.
-     */
+    // The fragment's current callback object, which is notified of list item clicks.
     private Callbacks mCallbacks = sDummyCallbacks;
 
-    /**
-     * The current activated item position. Only used on tablets.
-     */
+    // The current activated item position. Only used on tablets.
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
-    /**
-     * A callback interface that all activities containing this fragment must
-     * implement. This mechanism allows activities to be notified of item
-     * selections.
-     */
+    // A callback interface that all activities containing this fragment must implement.
+    // This mechanism allows activities to be notified of item selections.
     public interface Callbacks {
-        /**
-         * Callback for when an item has been selected.
-         */
+        // Callback for when an item has been selected.
         public void onItemSelected(String id);
     }
 
-    /**
-     * A dummy implementation of the {@link Callbacks} interface that does
-     * nothing. Used only when this fragment is not attached to an activity.
-     */
+    // A dummy implementation of the {@link Callbacks} interface that does nothing.
+    // Used only when this fragment is not attached to an activity.
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
         public void onItemSelected(String id) {
         }
     };
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    // Mandatory empty constructor for the fragment manager to instantiate the* fragment
+    // (e.g. upon screen orientation changes).
     public SelfieListFragment() {
     	Log.i(TAG, "SelfieListFragment constructor entered");
     }
+
+    /*****************************************
+     *          FRAGMENT LIFECYCLE           *
+     *****************************************/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -151,10 +139,12 @@ public class SelfieListFragment extends ListFragment {
         }
     }
 
-    /**
-     * Turns on activate-on-click mode. When this mode is on, list items will be
-     * given the 'activated' state when touched.
-     */
+    /*****************************************
+     *           SUPPORT METHODS             *
+     *****************************************/
+
+    // Turns on activate-on-click mode. When this mode is on, list items will be given the
+    // 'activated' state when touched.
     public void setActivateOnItemClick(boolean activateOnItemClick) {
         // When setting CHOICE_MODE_SINGLE, ListView will automatically
         // give items the 'activated' state when touched.
@@ -172,4 +162,7 @@ public class SelfieListFragment extends ListFragment {
 
         mActivatedPosition = position;
     }
+
+    // *** END OF CLASS ***
+
 }
