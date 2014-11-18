@@ -42,7 +42,7 @@ public class DailySelfieMainActivity extends Activity
 	private static final String ACTIONBAR_DISPLAY_OPTIONS = "4fdad5f0-6dd9-11e4-9803-0800200c9a66";
 
 	/*****************************************
-	 *           LOCAL VARIABLES             *
+	 *                FIELDS                 *
 	 *****************************************/
 	// layout type flag
     private boolean mTwoPane = false;

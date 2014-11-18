@@ -2,10 +2,12 @@ package com.paolone.dailyselfie;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.ListFragment;
+import android.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 
@@ -20,7 +22,7 @@ import com.paolone.dailyselfie.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class SelfieListFragment extends ListFragment {
+public class SelfieListFragment extends Fragment {
 
 	/*****************************************
 	 *              CONSTANTS                *
@@ -31,6 +33,10 @@ public class SelfieListFragment extends ListFragment {
     // The serialization (saved instance state) Bundle key representing the activated item position.
     // Only used on tablets.
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
+
+    /*****************************************
+     *                FIELDS                 *
+     *****************************************/
 
     // The fragment's current callback object, which is notified of list item clicks.
     private Callbacks mCallbacks = sDummyCallbacks;
@@ -59,6 +65,9 @@ public class SelfieListFragment extends ListFragment {
     	Log.i(TAG, "SelfieListFragment constructor entered");
     }
 
+    private ExpandableListView selfiesExpandableList;
+    private View rootView;
+
     /*****************************************
      *          FRAGMENT LIFECYCLE           *
      *****************************************/
@@ -68,13 +77,22 @@ public class SelfieListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
  
         Log.i(TAG, "SelfieListFragment.onCreate entered");
-
+        /*
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+        selfiesExpandableList.setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                DummyContent.ITEMS));
+                DummyContent.ITEMS));*/
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        rootView = inflater.inflate(R.layout.fragment_selfies_list, container, false);
+
+        return rootView;
+
     }
 
     @Override
@@ -90,7 +108,10 @@ public class SelfieListFragment extends ListFragment {
         }
         
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
-        
+
+        selfiesExpandableList = (ExpandableListView) view.findViewById(R.id.SelfiesExpandableView);
+        selfiesExpandableList.setAdapter(new ExpandableListAdapter(DummyContent.groupData, DummyContent.childData, view.getContext()));
+
     }
 
     @Override
@@ -116,16 +137,16 @@ public class SelfieListFragment extends ListFragment {
         // Reset the active callbacks interface to the dummy implementation.
         mCallbacks = sDummyCallbacks;
     }
-
+/*
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        super.onListItemClick(listView, view, position, id);
+       // super.onListItemClick(listView, view, position, id);
 
         Log.i(TAG, "SelfieListFragment.onListItemClick entered");
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
         mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-    }
+    }*/
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -148,16 +169,16 @@ public class SelfieListFragment extends ListFragment {
     public void setActivateOnItemClick(boolean activateOnItemClick) {
         // When setting CHOICE_MODE_SINGLE, ListView will automatically
         // give items the 'activated' state when touched.
-        getListView().setChoiceMode(activateOnItemClick
+        selfiesExpandableList.setChoiceMode(activateOnItemClick
                 ? ListView.CHOICE_MODE_SINGLE
                 : ListView.CHOICE_MODE_NONE);
     }
 
     private void setActivatedPosition(int position) {
         if (position == ListView.INVALID_POSITION) {
-            getListView().setItemChecked(mActivatedPosition, false);
+            selfiesExpandableList.setItemChecked(mActivatedPosition, false);
         } else {
-            getListView().setItemChecked(position, true);
+            selfiesExpandableList.setItemChecked(position, true);
         }
 
         mActivatedPosition = position;
@@ -166,3 +187,4 @@ public class SelfieListFragment extends ListFragment {
     // *** END OF CLASS ***
 
 }
+
