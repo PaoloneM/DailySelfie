@@ -77,18 +77,13 @@ public class SelfieListFragment extends Fragment {
         super.onCreate(savedInstanceState);
  
         Log.i(TAG, "SelfieListFragment.onCreate entered");
-        /*
-        // TODO: replace with a real list adapter.
-        selfiesExpandableList.setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));*/
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        // Inflates layout for this fragment (linear layout containing an ExpandableListView)
         rootView = inflater.inflate(R.layout.fragment_selfies_list, container, false);
 
         return rootView;
@@ -106,11 +101,30 @@ public class SelfieListFragment extends Fragment {
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
-        
+
+        // Ensures that action bar's home button doesn't show back capabilities (used in detail view)
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
 
+        // Get a reference to the ExpandableListView of previously inflated layout and set the
+        // adapter and onClick callbacks
         selfiesExpandableList = (ExpandableListView) view.findViewById(R.id.SelfiesExpandableView);
         selfiesExpandableList.setAdapter(new ExpandableListAdapter(DummyContent.groupData, DummyContent.childData, view.getContext()));
+        selfiesExpandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
+
+                Log.i(TAG, "SelfieListFragment.selfiesExpandableList.onChildClick entered");
+                Log.i(TAG, "SelfieListFragment.selfiesExpandableList.onChildClick ExpandableView = " + expandableListView.toString());
+                Log.i(TAG, "SelfieListFragment.selfiesExpandableList.onChildClick View = " + view.toString());
+                Log.i(TAG, "SelfieListFragment.selfiesExpandableList.onChildClick i = " + i + " i2 = " + i2);
+                Log.i(TAG, "SelfieListFragment.selfiesExpandableList.onChildClick l = " + l);
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+                mCallbacks.onItemSelected(DummyContent.childData[i][i2]);
+                return false;
+            }
+        });
 
     }
 
@@ -126,6 +140,7 @@ public class SelfieListFragment extends Fragment {
         }
 
         mCallbacks = (Callbacks) activity;
+
     }
 
     @Override
@@ -147,6 +162,7 @@ public class SelfieListFragment extends Fragment {
         // fragment is attached to one) that an item has been selected.
         mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
     }*/
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
