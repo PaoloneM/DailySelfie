@@ -26,11 +26,12 @@ public class SelfieDetailFragment extends Fragment {
 	private static final String TAG = "Dailiy_Selfie";
 
 	// The fragment argument representing the item ID that this fragment
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_GROUP_ID = "group_id";
+    public static final String ARG_CHILD_ID = "child_id";
 
     // The dummy content this fragment is presenting.
     private DummyContent.DummyItem mItem;
-
+    private String DummyString;
     // Mandatory empty constructor for the fragment manager to instantiate the fragment
     // (e.g. upon screen orientation changes).
     public SelfieDetailFragment() {
@@ -49,12 +50,13 @@ public class SelfieDetailFragment extends Fragment {
 
         Log.i(TAG, "SelfieDetailFragment.onCreate entered");
         
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments().containsKey(ARG_GROUP_ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-        	String arguments = getArguments().getString(ARG_ITEM_ID);
-            mItem = DummyContent.ITEM_MAP.get(arguments);
+            int argumentGroup = getArguments().getInt(ARG_GROUP_ID);
+            int argumentChild = getArguments().getInt(ARG_CHILD_ID);
+            DummyString = DummyContent.childData[argumentGroup][argumentChild];
         }
     }
 
@@ -67,8 +69,8 @@ public class SelfieDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_selfie_detail, container, false);
 
         // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.selfie_detail)).setText(mItem.content);
+        if (DummyString != null) {
+            ((TextView) rootView.findViewById(R.id.selfie_detail)).setText(DummyString);
         }
 
         return rootView;
