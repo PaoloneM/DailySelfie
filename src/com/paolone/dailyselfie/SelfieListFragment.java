@@ -44,6 +44,13 @@ public class SelfieListFragment extends Fragment {
     // The current activated item position. Only used on tablets.
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
+    private ExpandableListView selfiesExpandableList;
+    private View rootView;
+
+    /*****************************************
+     *                INTERFACES             *
+     *****************************************/
+
     // A callback interface that all activities containing this fragment must implement.
     // This mechanism allows activities to be notified of item selections.
     public interface Callbacks {
@@ -59,18 +66,15 @@ public class SelfieListFragment extends Fragment {
         }
     };
 
+    /*****************************************
+     *          FRAGMENT LIFECYCLE           *
+     *****************************************/
+
     // Mandatory empty constructor for the fragment manager to instantiate the* fragment
     // (e.g. upon screen orientation changes).
     public SelfieListFragment() {
     	Log.i(TAG, "SelfieListFragment constructor entered");
     }
-
-    private ExpandableListView selfiesExpandableList;
-    private View rootView;
-
-    /*****************************************
-     *          FRAGMENT LIFECYCLE           *
-     *****************************************/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
