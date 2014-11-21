@@ -1,15 +1,18 @@
 package com.paolone.dailyselfie;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.MenuItem;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 
-
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -40,6 +43,9 @@ public class DailySelfieMainActivity extends Activity
 	private static final String SELECTED_SELFIE_KEY = "16f38740-6d99-11e4-9803-0800200c9a66";
 	// Saved Instance key for the action bar home button back capability flag (UUID)
 	private static final String ACTIONBAR_DISPLAY_OPTIONS = "4fdad5f0-6dd9-11e4-9803-0800200c9a66";
+    // File paths
+    private static final String DIR = MediaStore.Images.Media.DATA;
+    private static final String FILE_RADIX = "Selfie_";
 
 	/*****************************************
 	 *                FIELDS                 *
@@ -53,7 +59,9 @@ public class DailySelfieMainActivity extends Activity
     private SelfieListFragment mSelfieListFragment = null;
     // currently selected item pointer
     private String mLastSelectedPosition = null;
-    
+    // Data
+    private SparseArray<SelfiesGroup> mGroups = new SparseArray<SelfiesGroup>();
+    private ArrayList<SelfieItem> mChildList;
 
     /*****************************************
      *          ATIVITY LIFECYCLE            *
@@ -70,13 +78,15 @@ public class DailySelfieMainActivity extends Activity
         
         // Check layout style
         mTwoPane = isInTwoPaneMode();
-        
+
+        createDummyData(mGroups, mChildList);
+        mapDummyData(mChildList);
+
         // Manage different layouts based on device size
         fragmentsInit(mTwoPane, savedInstanceState);
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
-
 
     // Callback method from  SelfieListFragment.Callbacks}
     @Override
@@ -220,6 +230,49 @@ public class DailySelfieMainActivity extends Activity
         mLastSelectedPosition = (groupId + "-" + childId);
      
 	}
-	
-	// *** END OF CLASS ***
+
+    private void createDummyData(SparseArray<SelfiesGroup> groups, ArrayList<SelfieItem> childList) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+        Date mDate = null;
+
+        try {
+            mDate = format.parse("2014-01-01T01:01:02:03Z");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        File mFile = new File(DIR, (FILE_RADIX + mDate.toString()));
+
+        childList.add(new SelfieItem(mDate, mFile));
+
+        try {
+            mDate = format.parse("2014-11-01T01:01:02:03Z");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        mFile = new File(DIR, (FILE_RADIX + mDate.toString()));
+
+        childList.add(new SelfieItem(mDate, mFile));
+
+        try {
+            mDate = format.parse("2014-11-21T01:01:02:03Z");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        mFile = new File(DIR, (FILE_RADIX + mDate.toString()));
+
+        childList.add(new SelfieItem(mDate, mFile));
+
+    }
+
+    private void mapDummyData(ArrayList<SelfieItem> mChildList) {
+
+
+    }
+
+    // *** END OF CLASS ***
 }
