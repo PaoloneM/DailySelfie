@@ -14,6 +14,8 @@ public class SelfieItem {
     /*****************************************
      *              CONSTANTS                *
      *****************************************/
+    // TAG for logging
+    private static final String TAG = "Dailiy_Selfie";
 
 
     /*****************************************
@@ -22,7 +24,6 @@ public class SelfieItem {
 
     private Date mDate;
     private Location mLocation;
-    private Bitmap mThumb;
     private File mFile;
 
     /*****************************************
@@ -62,9 +63,18 @@ public class SelfieItem {
         return mFile;
     }
 
-    public Bitmap getThumb(){
-        return mThumb;
+    public void setDate(Date date){
+        mDate = date;
     }
+
+    public void setLocation(Location location){
+        mLocation = location;
+    }
+
+    public void setFile(File file){
+        mFile = file;
+    }
+
 
     /*****************************************
      *           SUPPORT METHODS             *
