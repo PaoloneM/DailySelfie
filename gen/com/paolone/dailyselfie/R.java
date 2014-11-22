@@ -14,6 +14,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int SelfiesExpandableView=0x7f060004;
+        public static final int SelfiesListLayout=0x7f060003;
+        public static final int lblListItem=0x7f060005;
         public static final int selfie_detail=0x7f060002;
         public static final int selfie_fragment_container=0x7f060001;
         public static final int selfie_list=0x7f060000;
@@ -38,9 +41,14 @@ public final class R {
          */
         public static final int daily_selfie_main=0x7f030002;
         public static final int fragment_selfie_detail=0x7f030003;
+        public static final int fragment_selfies_list=0x7f030004;
+        public static final int list_item=0x7f030005;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int last_month_selfies_group=0x7f040003;
+        public static final int older_selfies_group=0x7f040004;
+        public static final int recent_selfies_group=0x7f040002;
         public static final int title_selfie_detail=0x7f040001;
     }
     public static final class style {

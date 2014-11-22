@@ -12,6 +12,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -271,6 +272,15 @@ public class DailySelfieMainActivity extends Activity
 
     private void mapDummyData(ArrayList<SelfieItem> mChildList) {
 
+    	
+    	for (SelfieItem child: mChildList){
+    		
+    		int mSelfieAge = child.getDate().compareTo(Calendar.getInstance().getTime());
+    		
+    		if (mSelfieAge > 1000*60*60*24*30) {
+    			
+    		}
+    	}
 
     }
 
